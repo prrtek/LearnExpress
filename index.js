@@ -50,6 +50,23 @@ app.put("/api/v1/users/:id", (req, res) => {
   }
 });
 
+//Patch
+app.patch("/api/v1/users/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const updates = req.body;
+
+  // Find the user with the given ID
+  const user = users.find((user) => user.id === userId);
+  if (user) {
+    // Apply the updates to the user object
+    Object.assign(user, updates);
+
+    res.send(`User with ID ${userId} updated successfully.`);
+  } else {
+    res.status(404).send("User not found.");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
