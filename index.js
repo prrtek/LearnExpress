@@ -67,6 +67,24 @@ app.patch("/api/v1/users/:id", (req, res) => {
   }
 });
 
+//Delete
+
+// Route to handle DELETE requests to delete a user
+app.delete("/api/v1/users/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  // Find the index of the user with the given ID
+  const userIndex = users.findIndex((user) => user.id === userId);
+  if (userIndex !== -1) {
+    // Remove the user from the array
+    users.splice(userIndex, 1);
+
+    res.send(`User with ID ${userId} deleted successfully.`);
+  } else {
+    res.status(404).send("User not found.");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
