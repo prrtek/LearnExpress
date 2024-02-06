@@ -20,6 +20,12 @@ app.get("/", (req, res) => {
 app.get("/api/v1/users", (request, response) => {
   response.send(users);
 });
+//Route params
+app.get("/api/v1/users/:id", (request, response) => {
+  const userId = parseInt(request.params.id);
+  const user = users.find((users) => users.id === userId);
+  response.send(user);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
