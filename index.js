@@ -33,6 +33,23 @@ app.post("/api/v1/users", (request, response) => {
   response.send(users);
 });
 
+//Put
+app.put("/api/v1/users/:id", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const { name } = req.body;
+
+  // Find the user with the given ID
+  const userIndex = users.findIndex((user) => user.id === userId);
+  if (userIndex !== -1) {
+    // Update the user's name and age
+    users[userIndex].name = name;
+
+    res.send(`User with ID ${userId} updated successfully.`);
+  } else {
+    res.status(404).send("User not found.");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });
